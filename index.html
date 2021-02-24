@@ -53,16 +53,15 @@
                     <li v-for="producto in productos" class="menu-item">
                         <span class="divider" data-content="Producto en cola "></span>
                         <label class="form-checkbox" >
-                            <input type="checkbox" :checked="producto.fields.Adquerido">
-                            <div>
-                                <i class="form-icon"></i> {{producto.fields.Nombre}}
-                                <button @click="borrarProducto(producto.id)" class="btn"> Eliminar</button>
-                            </div>
-                            <div>
-                                <input type="text" v-model="textoActualizar" @keypress.enter="actualizarProductoEnApi(producto.id, textoActualizar)">
-                            </div>
+                            <input @click="actualizarAdqueridoEnApi(producto.id, !producto.fields.Adquerido)" type="checkbox" :checked="producto.fields.Adquerido" >
+                            <i class="form-icon"></i> {{producto.fields.Nombre}}
+                            <button @click="borrarProducto(producto.id)" class="btn"> Eliminar</button>
+
                         </label>
 
+                        <div class="form-group">
+                            <input class="form-input" type="text" v-model="textoActualizar" @keypress.enter="actualizarProductoEnApi(producto.id, textoActualizar)">
+                        </div>
                         <span class="divider" ></span>
                     </li>
                 </ul>
@@ -97,6 +96,11 @@
 
                 </div>
                 <!--end cargar-->
+                <div class="form-group">
+                    <label class="form-label">Añadir producto</label>
+                    <input class="form-input" type="text"  placeholder="producto"
+                    @keypress.enter="anyadirProductoApi">
+                </div>
             </section>
         </main>
 
