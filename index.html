@@ -52,15 +52,15 @@
                 <ul class="menu" v-if="productos.length > 0">
                     <li v-for="producto in productos" class="menu-item">
                         <span class="divider" data-content="Producto en cola "></span>
-                        <label class="form-checkbox" >
+                        <label v-if="producto.id !== productoEditar" class="form-checkbox" >
                             <input @click="actualizarAdqueridoEnApi(producto.id, !producto.fields.Adquerido)" type="checkbox" :checked="producto.fields.Adquerido" >
-                            <i class="form-icon"></i> {{producto.fields.Nombre}}
+                            <span @click="abrirEditar(producto.id,producto.fields.Nombre)"><i class="form-icon"></i> {{producto.fields.Nombre}}</span>
                             <button @click="borrarProducto(producto.id)" class="btn"> Eliminar</button>
 
                         </label>
 
-                        <div class="form-group">
-                            <input class="form-input" type="text" v-model="textoActualizar" @keypress.enter="actualizarProductoEnApi(producto.id, textoActualizar)">
+                        <div v-else class="form-group" >
+                            <input class="form-input" type="text" v-model="textoActualizar" @keypress.enter="actualizarProductoEnApi(producto.id, textoActualizar);" @blur="productoEditar=false">
                         </div>
                         <span class="divider" ></span>
                     </li>
