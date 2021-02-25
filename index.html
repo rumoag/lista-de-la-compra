@@ -98,8 +98,8 @@
                 <!--end cargar-->
                 <div class="form-group">
                     <label class="form-label">Añadir producto</label>
-                    <input class="form-input" type="text"  placeholder="producto"
-                    @keypress.enter="anyadirProductoApi">
+                    <input class="form-input" type="text"  placeholder="producto" v-model="nuevoProducto"
+                    @keypress.enter="anyadirProductoApi(nuevoProducto)">
                 </div>
             </section>
         </main>

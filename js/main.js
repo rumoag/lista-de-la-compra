@@ -2,12 +2,14 @@ const url_api= "https://api.airtable.com/v0/appU4eSR0p97dLVbc/Productos?maxRecor
 const url_api_borrar= "https://api.airtable.com/v0/appU4eSR0p97dLVbc/Productos?records[]="
 const Authorization = "Bearer keypFgW9ql6PGevJQ";
 const url_api_update = "https://api.airtable.com/v0/appU4eSR0p97dLVbc/Productos ";
+const url_api_create = "https://api.airtable.com/v0/appU4eSR0p97dLVbc/Productos";
 
 new Vue({
     el: '#app',
     data: {
         productos: [],
         textoActualizar: '',
+        nuevoProducto: '',
     },
     mounted: function (){
         this.obtenerDatos();
@@ -85,25 +87,29 @@ new Vue({
             })
 
         },
-        anyadirProductoApi: function (){
-            fetch(url_api_update, {
+        anyadirProductoApi: function (nuevoTexto){
+            fetch(url_api_create, {
                 headers: {
                     'Authorization': Authorization,
                     'Content-type': 'application/json'
                 },
                 //pacth un solo producto a la vez
-                method: 'PATCH',
+                method: 'POST',
                 body: JSON.stringify({
                     "records": [
                         {
-                            "id": id,
                             "fields": {
                                 "Nombre": nuevoTexto,
+                                "Adquerido": false,
+
                             }
                         },
                     ]
                 })
             })
+                .then((json) => this.nuevoProducto = '')
+                .then((json) => this.obtenerDatos())
+
         },
     },
 });
